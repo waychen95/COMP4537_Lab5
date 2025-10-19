@@ -4,7 +4,7 @@ class Page {
 
     render() {
 
-        const API_URL = 'http://localhost:8081'
+        const API_URL = 'https://juhyunp.xyz/COMP4537/labs/5'
 
         document.getElementById("submit-button").innerText = MESSAGE.SUBMIT
         document.getElementById("title").innerText = MESSAGE.TITLE
@@ -18,7 +18,7 @@ class Page {
             default_response.innerHTML = ""
             try {
                 const res = await fetch(`${API_URL}/api/insertPatient`)
-                const data = res.json()
+                const data = await res.json()
                 if (data) {
                     default_response.innerHTML = `<p>${MESSAGE.DEFAULT_PATIENT_SUCCESS}</p>`
                 } else {
@@ -44,16 +44,16 @@ class Page {
 
             try {
                 if (query.toLowerCase().startsWith("select")) {
-                    res = await fetch(`${API_URL}/api/v1/sql${encodeURIComponent(query)}`)
-                    data = res.json()
+                    res = await fetch(`${API_URL}/api/v1/sql/${encodeURIComponent(query)}`)
+                    data = await res.json()
                 } else if (query.toLowerCase().startsWith("insert")) {
-                    res = await fetch(`${API_URL}/api/v1/sql${encodeURIComponent(query)}`, {
+                    res = await fetch(`${API_URL}/api/v1/sql/${encodeURIComponent(query)}`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json"},
                         body: JSON.stringify({query: query})
                     })
-                    
-                    data = res.json()
+
+                    data = await res.json()
                 } else {
                     alert("Only SELECT or INSERT queries are allowed")
                     return
@@ -65,7 +65,7 @@ class Page {
                         div.classList.add("response-list")
                         const p = document.createElement("p")
                         p.classList.add("response-item")
-                        p.innerText = `${item}`
+                        p.innerText = JSON.stringify(item, null, 2)
                         div.appendChild(p)
                         response.appendChild(div)
                     })
