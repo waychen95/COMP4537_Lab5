@@ -42,7 +42,7 @@ async function createDatabaseAndUser() {
 }
 
 async function createPatientTable() {
-    // 테이블 생성은 root 권한으로!
+
     const rootConnection = await mysql.createConnection({
         ...ROOT_CONFIG,
         database: DB_CONFIG.database
@@ -72,7 +72,6 @@ async function initializeDatabase() {
         await createDatabaseAndUser();
         await createPatientTable();
 
-        // 이제 lab5_user로 pool 생성 (일반 쿼리용)
         pool = mysql.createPool(DB_CONFIG);
 
         console.log('Database initialization complete');

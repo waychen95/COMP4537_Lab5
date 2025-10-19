@@ -55,7 +55,7 @@ class Page {
 
                     data = await res.json()
                 } else {
-                    alert("Only SELECT or INSERT queries are allowed")
+                    alert(MESSAGE.QUERY_ALERT)
                     return
                 }
 
@@ -65,7 +65,7 @@ class Page {
                         div.classList.add("response-list")
                         const p = document.createElement("p")
                         p.classList.add("response-item")
-                        p.innerText = JSON.stringify(item, null, 2)
+                        p.innerText = `ID: ${item.patientId}, Name: ${item.name}, Date of Birth: ${item.dateOfBirth}`
                         div.appendChild(p)
                         response.appendChild(div)
                     })
